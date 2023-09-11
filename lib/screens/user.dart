@@ -134,13 +134,59 @@ class _UserScreenState extends State<UserScreen> {
                 title: 'Logout',
                 icon: IconlyLight.logout,
                 color: color,
-                onPressed: () {},
+                onPressed: () {
+                  _showLogoutDialog();
+                },
               ),
             ],
           ),
         ),
       ),
     ));
+  }
+
+//function fpr logout dialog
+  Future<void> _showLogoutDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  'assets/images/warning-sign.png',
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Sign Out'),
+              ),
+            ],
+          ),
+          content: const Text('Do you wanna logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+              child:
+                  TextWidget(text: 'Cancel', color: Colors.cyan, textSize: 18),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: TextWidget(text: 'Yes', color: Colors.red, textSize: 18),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _showAddressDialog() async {
