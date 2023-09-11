@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+//import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
@@ -16,6 +16,14 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  final TextEditingController _addressTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    _addressTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -72,7 +80,9 @@ class _UserScreenState extends State<UserScreen> {
                 subtitle: 'My Subtitle',
                 icon: IconlyLight.profile,
                 color: color,
-                onPressed: () {},
+                onPressed: () async {
+                  await _showAddressDialog();
+                },
               ),
               _listTiles(
                 title: 'Orders',
@@ -131,6 +141,33 @@ class _UserScreenState extends State<UserScreen> {
         ),
       ),
     ));
+  }
+
+  Future<void> _showAddressDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Update'),
+          content: TextField(
+            // onChanged: (value) {
+            // print('_addressTextController.text: ${value}');
+            //},
+            controller: _addressTextController,
+            maxLines: 5,
+            decoration: const InputDecoration(hintText: "Your address"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                print(_addressTextController.text);
+              },
+              child: const Text('Update'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _listTiles({
