@@ -16,7 +16,7 @@ class BottomBarScreen extends StatefulWidget {
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
   final List<Map<String, dynamic>> _pages = [
     {'page': const HomeScreen(), 'title': 'Home Screen'},
     {'page': const CategoriesScreen(), 'title': 'Category Screen'},
@@ -65,7 +65,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-                _selectedIndex == 3 ? IconlyBold.user3 : IconlyLight.user3),
+                _selectedIndex == 3 ? IconlyBold.user2 : IconlyLight.user2),
             label: "User",
           ),
         ],
